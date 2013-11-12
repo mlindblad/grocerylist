@@ -33,7 +33,6 @@ angular.module('grocerylist.controllers', []).
   controller('MyCtrl1', function($scope,$rootScope) {
   		this.recipes = mockRecipes;
   		$scope.grocerylist = [];
-  		console.log($scope);	
   		$scope.addToGrocerylist = function(ingredient) {
   			$scope.grocerylist.push(ingredient);
   		}
