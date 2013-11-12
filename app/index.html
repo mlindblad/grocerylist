@@ -8,20 +8,40 @@
 </head>
 <body>
    <div class="container" ng-controller="MyCtrl1 as recipeController">
-      <div class="input-group input-group-lg topSearchBar">
-        <span class="input-group-addon">Search</span>
-        <input type="text" class="form-control" placeholder="Search for recipe" ng-model="search">
-      </div>
+    <div class="input-group input-group-lg topSearchBar">
+      <span class="input-group-addon">Search</span>
+      <input type="text" class="form-control" placeholder="Search for recipe" ng-model="search">
+    </div>
     
-      <div class="row">
+    <div class="row">
         <div class="col-md-6" >
+            <div class="well box" ng-repeat="recipe in recipeController.recipes">
+            <h4>{{recipe.name}} - {{recipe.numberOfServings}} portioner</h4>
+
+            <ul ng-repeat="ingredient in recipe.ingredients">
+              <li>{{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}</li>
+            </ul>
+            <h4>Tillagning</h4>
+            <p>{{recipe.instructions}}</p>
+        </div>
          
         </div>
         <div class="col-md-6">
           
-        </div>
+       </div>
         
-    </div> 
+    </div>
+
+
+
+
+
+
+
+
+
+
+    
   </div>
 
   <!-- In production use:
