@@ -28,3 +28,11 @@
   content: "";
   padding: 0;
 }
+
+.box {
+  margin-top: 20px;
+}
+
+.topSearchBar {
+  margin-top: 20px;
+}
