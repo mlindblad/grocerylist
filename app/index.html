@@ -29,7 +29,7 @@
             </h4>
 
             <ul ng-repeat="ingredient in recipe.ingredients">
-              <li>{{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}</li>
+              <li>{{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}<button type="button" class="btn btn-default btn-xs pull-right" ng-click="addToGrocerylist(ingredient)">Lägg till inköpslista</button></li>
             </ul>
             <h4>Tillagning</h4>
             <p>{{recipe.instructions}}</p>
@@ -37,7 +37,13 @@
          
         </div>
         <div class="col-md-6">
-          
+          <div class="well box">
+          <h4>Inköpslista</h4 >
+          <ul ng-repeat="item in grocerylist">
+            <li>
+              {{item.amount}}{{item.unit}} {{item.name}}
+            </li>
+          </ul>
        </div>
         
     </div>

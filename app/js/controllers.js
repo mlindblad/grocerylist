@@ -41,4 +41,9 @@ angular.module('grocerylist.controllers', []).
 			});
   		}
 
+  		$scope.grocerylist = [];
+  		$scope.addToGrocerylist = function(ingredient) {
+  			$scope.grocerylist.push(ingredient);
+  		}
+
   });
