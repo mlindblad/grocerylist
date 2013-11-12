@@ -14,8 +14,8 @@
     </div>
     
     <div class="row">
-        <div class="col-md-6" >
-            <div class="well box" ng-repeat="recipe in recipeController.recipes">
+        <div class="col-md-6" ng-show="(filteredData = (recipeController.recipes | filter:search:strict)) && search">
+            <div class="well box" ng-repeat="recipe in filteredData">
             <h4>{{recipe.name}} - {{recipe.numberOfServings}} portioner
 
             <div class="btn-toolbar pull-right" role="toolbar">
