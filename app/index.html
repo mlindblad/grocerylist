@@ -16,7 +16,17 @@
     <div class="row">
         <div class="col-md-6" >
             <div class="well box" ng-repeat="recipe in recipeController.recipes">
-            <h4>{{recipe.name}} - {{recipe.numberOfServings}} portioner</h4>
+            <h4>{{recipe.name}} - {{recipe.numberOfServings}} portioner
+
+            <div class="btn-toolbar pull-right" role="toolbar">
+              <div class="btn-group btn-group-xs">
+                <button type="button" class="btn btn-default" ng-click="updateNrOfPortions(recipe,2)">2</button>
+                <button type="button" class="btn btn-default" ng-click="updateNrOfPortions(recipe,4)">4</button>
+                <button type="button" class="btn btn-default" ng-click="updateNrOfPortions(recipe,8)">8</button>
+              </div>
+            </div>
+
+            </h4>
 
             <ul ng-repeat="ingredient in recipe.ingredients">
               <li>{{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}</li>
