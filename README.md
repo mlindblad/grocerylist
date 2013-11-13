@@ -1,151 +1,85 @@
-# angular-seed — the seed for AngularJS apps
+# Inköpslista skriven med Angularjs
 
-This project is an application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
-You can use it to quickly bootstrap your angular webapp projects and dev environment for these
-projects.
+### Förberedelser
 
-The seed contains AngularJS libraries, test libraries and a bunch of scripts all preconfigured for
-instant web development gratification. Just clone the repo (or download the zip/tarball), start up
-our (or yours) webserver and you are ready to develop and test your application.
+1. git clone git@github.com:mlindblad/grocerylist.git
+1. cd grocerylist
+1. git checkout -f step-01
+1. ./scripts/web-server.js
+1. Gå till http://localhost:8000/app/index.html
 
-The seed app doesn't do much, just shows how to wire two controllers and views together. You can
-check it out by opening app/index.html in your browser (might not work file `file://` scheme in
-certain browsers, see note below).
+### Steg 1 - Visa upp recepten
 
-_Note: While angular is client-side-only technology and it's possible to create angular webapps that
-don't require a backend server at all, we recommend hosting the project files using a local
-webserver during development to avoid issues with security restrictions (sandbox) in browsers. The
-sandbox implementation varies between browsers, but quite often prevents things like cookies, xhr,
-etc to function properly when an html page is opened via `file://` scheme instead of `http://`._
+### Uppgift
+Nyckeln för att kunna visa upp recepten är att förstå hur bindningar mellan controller och vyer fungerar. Genom att skriva this.recipes = mockRecipes; i controllern får du tillgång till variabeln recipes i vyn. Och iom att det är en lista kan du använda angulars direktiv ng-repeat för att iterera över listan.
+Fyll i följande i index.html för att se hur det fungerar.
 
+    <div class="well box" ng-repeat="recipe in recipeController.recipes">
+        <h4>{{recipe.name}} - {{recipe.numberOfServings}} portioner</h4>
+        <ul ng-repeat="ingredient in recipe.ingredients">
+          <li>{{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}</li>
+        </ul>
+        <h4>Tillagning</h4>
+        <p>{{recipe.instructions}}</p>
+    </div>
 
-## How to use angular-seed
+### Steg 2 - Uppdatera antalet portioner
 
-Clone the angular-seed repository and start hacking...
+Börja med att checka ut Steg 2 genom att skriva git checkout -f step-02
 
+### Uppgift
+Nu ska vi titta på hur bindningarna fungerar i angular. Tanken är att du ska lägga till tre knappar till varje recept som talar om hur många personer receptet är till för. Namnen på knapparna ska vara 2,4,8. Klickar du på 2 ska ingredienserna i receptet uppdateras.
 
-### Running the app during development
+Börja med att lägg till knappar på lämpligt ställe. En knapp i html ser typiskt ut såhär: 
+    
+    <button type="button" class="btn btn-default">2</button>
 
-You can pick one of these options:
+För att det ska hända något när du klickar på knappen så kan du lägga till ett direktiv som heter ng-click. ng-click är ett attribut-direktiv och läggs till på samma sätt som ng-repeat. Dvs du lägger till det till knappen såhär: 
 
-* serve this repository with your webserver
-* install node.js and run `scripts/web-server.js`
+    <button type="button" class="btn btn-default" ng-click="updateNrOfPortions(recipe,2)">2</button> 
 
-Then navigate your browser to `http://localhost:<port>/app/index.html` to see the app running in
-your browser.
+Nu har du talat om för angular att updateNrOfPortions ska köras när du klickar på knappen. Funktionen deklarerar du på scopet i controllern:
 
+    $scope.updateNrOfPortions = function(recipe,nrOfServings)  {}
 
-### Running the app in production
+Hur funktionen ska se ut är upp till dig att klura ut.
 
-This really depends on how complex is your app and the overall infrastructure of your system, but
-the general rule is that all you need in production are all the files under the `app/` directory.
-Everything else should be omitted.
+### Steg 3 - Lägga till ingredienser till inköpslistan
 
-Angular apps are really just a bunch of static html, css and js files that just need to be hosted
-somewhere, where they can be accessed by browsers.
+Börja med att checka ut Steg 3 genom att skriva git checkout -f step-03
 
-If your Angular app is talking to the backend server via xhr or other means, you need to figure
-out what is the best way to host the static files to comply with the same origin policy if
-applicable. Usually this is done by hosting the files by the backend server or through
-reverse-proxying the backend server(s) and a webserver(s).
+### Uppgift
+Nu är tanken att vi ska kunna lägga till saker vi behöver handla hem till en inköpslista. Så lägg till en knapp bredvid varje ingrediens som lägger till den ingrediensen till inköpslistan. Lämpligtvis placerar du knappen i li elementet.
 
+    <button type="button" class="btn btn-default btn-xs pull-right" ng-click="addToGrocerylist(ingredient)">Lägg till inköpslista</button>
 
-### Running unit tests
+I controllern skapar du sedan en funktion som motsvarar den du angav i ng-click. Funktionen ska lägga till ingrediens till inköpslistan.
 
-We recommend using [jasmine](http://pivotal.github.com/jasmine/) and
-[Karma](http://karma-runner.github.io) for your unit tests/specs, but you are free
-to use whatever works for you.
-
-Requires [node.js](http://nodejs.org/), Karma (`sudo npm install -g karma`) and a local
-or remote browser.
-
-* start `scripts/test.sh` (on windows: `scripts\test.bat`)
-  * a browser will start and connect to the Karma server (Chrome is default browser, others can be captured by loading the same url as the one in Chrome or by changing the `config/karma.conf.js` file)
-* to run or re-run tests just change any of your source or test javascript files
+För att du ska se något resultat behöver du även visa upp vad som finns i listan. Det gör du genom att iterera över listan på samma sätt som förut, med ng-repeat.
 
 
-### End to end testing
+### Steg 4 - Gör recepten sökbara
 
-Angular ships with a baked-in end-to-end test runner that understands angular, your app and allows
-you to write your tests with jasmine-like BDD syntax.
+Börja med att checka ut steg 4 genom att skriva git checkout -f step-04
 
-Requires a webserver, node.js + `./scripts/web-server.js` or your backend server that hosts the angular static files.
+### Uppgift
 
-Check out the
-[end-to-end runner's documentation](http://docs.angularjs.org/guide/dev_guide.e2e-testing) for more
-info.
+Få sökningen att fungera. Inga recept ska synas från början.
 
-* create your end-to-end tests in `test/e2e/scenarios.js`
-* serve your project directory with your http/backend server or node.js + `scripts/web-server.js`
-* to run do one of:
-  * open `http://localhost:port/test/e2e/runner.html` in your browser
-  * run the tests from console with [Karma](http://karma-runner.github.io) via
-    `scripts/e2e-test.sh` or `script/e2e-test.bat`
+För att visa och dölja olika element finns det ett direktiv som heter ng-show. Om värdet av det evalueras till true kommer elementet att visas annars inte. Så till att börja med kan du testa att lägga till följande kod:
 
-### Continuous Integration
+    ng-show="(filteredData = (recipeController.recipes | filter:search:strict)) && search" 
 
-CloudBees have provided a CI/deployment setup:
+som ett extra argument till 
+    
+    <div class="col-md-6">
 
-<a href="https://grandcentral.cloudbees.com/?CB_clickstart=https://raw.github.com/CloudBees-community/angular-js-clickstart/master/clickstart.json"><img src="https://d3ko533tu1ozfq.cloudfront.net/clickstart/deployInstantly.png"/></a>
+Det du gör är att du lägger på ett textfilter som varje recept går igenom. Om ett recept innehåller texten som står i search-fältet kommer resultat läggas till i filteredData. Så för att endast visa upp matchade resultat måste du uppdatera ng-repeat till ng-repeat="recipe in filteredData"
 
-If you run this, you will get a cloned version of this repo to start working on in a private git repo, 
-along with a CI service (in Jenkins) hosted that will run unit and end to end tests in both Firefox and Chrome.
+### Steg 5 - Bonusuppgift (ej implementerad)
 
-### Receiving updates from upstream
+Börja med att checka ut steg 5 genom att skriva git checkout -f step-05
 
-When we upgrade angular-seed's repo with newer angular or testing library code, you can just
-fetch the changes and merge them into your project with git.
+### Uppgift
+Om en ingrediens redan finns i inköpslistan ska den inte läggas till igen utan istället uppdateras.
 
-
-## Directory Layout
-
-    app/                --> all of the files to be used in production
-      css/              --> css files
-        app.css         --> default stylesheet
-      img/              --> image files
-      index.html        --> app layout file (the main html template file of the app)
-      index-async.html  --> just like index.html, but loads js files asynchronously
-      js/               --> javascript files
-        app.js          --> application
-        controllers.js  --> application controllers
-        directives.js   --> application directives
-        filters.js      --> custom angular filters
-        services.js     --> custom angular services
-      lib/              --> angular and 3rd party javascript libraries
-        angular/
-          angular.js        --> the latest angular js
-          angular.min.js    --> the latest minified angular js
-          angular-*.js      --> angular add-on modules
-          version.txt       --> version number
-      partials/             --> angular view partials (partial html templates)
-        partial1.html
-        partial2.html
-
-    config/karma.conf.js        --> config file for running unit tests with Karma
-    config/karma-e2e.conf.js    --> config file for running e2e tests with Karma
-
-    scripts/            --> handy shell/js/ruby scripts
-      e2e-test.sh       --> runs end-to-end tests with Karma (*nix)
-      e2e-test.bat      --> runs end-to-end tests with Karma (windows)
-      test.bat          --> autotests unit tests with Karma (windows)
-      test.sh           --> autotests unit tests with Karma (*nix)
-      web-server.js     --> simple development webserver based on node.js
-
-    test/               --> test source files and libraries
-      e2e/              -->
-        runner.html     --> end-to-end test runner (open in your browser to run)
-        scenarios.js    --> end-to-end specs
-      lib/
-        angular/                --> angular testing libraries
-          angular-mocks.js      --> mocks that replace certain angular services in tests
-          angular-scenario.js   --> angular's scenario (end-to-end) test runner library
-          version.txt           --> version file
-      unit/                     --> unit level specs/tests
-        controllersSpec.js      --> specs for controllers
-        directivessSpec.js      --> specs for directives
-        filtersSpec.js          --> specs for filters
-        servicesSpec.js         --> specs for services
-
-## Contact
-
-For more information on AngularJS please check out http://angularjs.org/
