@@ -31,18 +31,4 @@ var mockRecipes = [
 
 angular.module('grocerylist.controllers', []).
   controller('MyCtrl1', function($scope,$rootScope) {
-  		this.recipes = mockRecipes;
-  		$scope.grocerylist = [];
-  		$scope.addToGrocerylist = function(ingredient) {
-  			$scope.grocerylist.push(ingredient);
-  		}
-
-  		$scope.updateNrOfPortions = function(recipe,nrOfServings) {
-  			var oldNrOfServings = recipe.numberOfServings;
-  			recipe.numberOfServings = nrOfServings;
-  			angular.forEach(recipe.ingredients, function(ingredient, key){
-  				ingredient.amount = (ingredient.amount/oldNrOfServings)*nrOfServings;
-			});
-  		}
-
   });
